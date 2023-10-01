@@ -1,0 +1,53 @@
+const taxRates = {
+    '0-24,000': 10,
+    '24,001-40,000': 25,
+    '40,001-80,000': 30,
+    '80,001-180,000': 35,
+    '180,001+': 45
+  };
+  
+  const nhifDeduction = 500; 
+  const nssfDeduction = 2000; 
+  
+  
+  function calculatePaye(basicSalary) {
+    for (const [salaryRange, taxRate] of Object.entries(taxRates)) {
+      const [minSalary, maxSalary] = salaryRange.split('-').map(s => parseInt(s.replace(',', ''), 10));
+      if (basicSalary >= minSalary && basicSalary <= maxSalary) {
+        return (basicSalary * taxRate) / 100;
+      }
+    }
+    return 0; 
+  }
+  
+ 
+  function calculateNetSalary(basicSalary, benefits) {
+    const paye = calculatePaye(basicSalary);
+    const grossSalary = basicSalary + benefits;
+    const totalDeductions = nhifDeduction + nssfDeduction + paye;
+    const netSalary = grossSalary - totalDeductions;
+    return {
+      basicSalary,
+      benefits,
+      grossSalary,
+      paye,
+      nhifDeduction,
+      nssfDeduction,
+      netSalary
+    };
+  }
+  
+  
+  const basicSalary = parseFloat(prompt("Enter your basic salary:"));
+  const benefits = parseFloat(prompt("Enter the value of benefits:"));
+  
+  
+  const salaryDetails = calculateNetSalary(basicSalary, benefits);
+  console.log("Basic Salary: KES " + salaryDetails.basicSalary.toFixed(2));
+  console.log("Benefits: KES " + salaryDetails.benefits.toFixed(2));
+  console.log("Gross Salary: KES " + salaryDetails.grossSalary.toFixed(2));
+  console.log("PAYE (Tax): KES " + salaryDetails.paye.toFixed(2));
+  console.log("NHIF Deductions: KES " + salaryDetails.nhifDeduction.toFixed(2));
+  console.log("NSSF Deductions: KES " + salaryDetails.nssfDeduction.toFixed(2));
+  console.log("Net Salary: KES " + salaryDetails.netSalary.toFixed(2));
+  

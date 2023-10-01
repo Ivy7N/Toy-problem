@@ -1,0 +1,25 @@
+function calculatedemeritpoint(speed) {
+    const speedLimit = 70;
+    const excessSpeed = speed - speedLimit;
+    const demeritpoint = 0;
+
+    if(demeritpoint <= 0){
+        console.log("Ok")
+    }else {
+        demeritpoint = Math.floor(excessSpeed / 5)* pointsPer5kmphOverLimit;
+        console.log('Points: ${demeritpoint');
+    }
+}
+const speedInput = prompt("Enter the speed of the car (in km/h):");
+
+if (speedInput === null || speedInput === "") {
+    console.log("Invalid input. Please enter a valid numeric speed.");
+} else {
+    const speed = parseFloat(speedInput);
+
+    if (!isNaN(speed)) {
+        calculatedemeritpoint(speed);
+    } else {
+        console.log("Invalid input. Please enter a valid numeric speed.");
+    }
+}
