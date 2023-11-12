@@ -18,6 +18,7 @@ function ViewBot() {
             setBots(res.data);
         })
     .catch((e) => {
+        console.log(e);
         alert("Bot not found");
     });
 },[id]);
